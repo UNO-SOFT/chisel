@@ -1,6 +1,8 @@
 package main
 
 import (
+	"bufio"
+	"bytes"
 	"flag"
 	"fmt"
 	"io/ioutil"
@@ -266,6 +268,8 @@ var clientHelp = `
 
     --hostname, Optionally set the 'Host' header (defaults to the host
     found in the server url).
+
+    --remotes, a file to read remotes from (one per line).
 ` + commonHelp
 
 func client(args []string) {
@@ -281,6 +285,7 @@ func client(args []string) {
 	pid := flags.Bool("pid", false, "")
 	hostname := flags.String("hostname", "", "")
 	verbose := flags.Bool("v", false, "")
+	flagRemotes := flags.String("remotes", "", "")
 	flags.Usage = func() {
 		fmt.Print(clientHelp)
 		os.Exit(1)
@@ -288,11 +293,41 @@ func client(args []string) {
 	flags.Parse(args)
 	//pull out options, put back remaining args
 	args = flags.Args()
-	if len(args) < 2 {
-		log.Fatalf("A server and least one remote is required")
+	switch len(args) {
+	case 0:
+		log.Fatalf("A server is required")
+	case 1:
+		if *flagRemotes == "" {
+			log.Fatalf("A server and least one remote is required")
+		}
 	}
 	if *auth == "" {
 		*auth = os.Getenv("AUTH")
+	}
+	remotes := args[1:]
+	var remotesFn string
+	if *flagRemotes != "" {
+		remotesFn = *flagRemotes
+	} else if len(remotes) == 1 && (remotes[0] == "-" || remotes[0] == "") {
+		remotes = remotes[:0]
+		remotesFn = "-"
+	}
+	if remotesFn != "" {
+		fh := os.Stdin
+		if remotesFn != "-" {
+			var err error
+			if fh, err = os.Open(remotesFn); err != nil {
+				log.Fatal(err)
+			}
+		}
+		scanner := bufio.NewScanner(fh)
+		for scanner.Scan() {
+			line := bytes.TrimSpace(scanner.Bytes())
+			if len(line) != 0 {
+				remotes = append(remotes, string(line))
+			}
+		}
+		fh.Close()
 	}
 	c, err := chclient.NewClient(&chclient.Config{
 		Fingerprint:      *fingerprint,
@@ -302,7 +337,7 @@ func client(args []string) {
 		MaxRetryInterval: *maxRetryInterval,
 		HTTPProxy:        *proxy,
 		Server:           args[0],
-		Remotes:          args[1:],
+		Remotes:          remotes,
 		HostHeader:       *hostname,
 	})
 	if err != nil {
