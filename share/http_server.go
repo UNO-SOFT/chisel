@@ -4,7 +4,6 @@ import (
 	"errors"
 	"net"
 	"net/http"
-	"sync"
 )
 
 //HTTPServer extends net/http Server and
@@ -14,7 +13,6 @@ type HTTPServer struct {
 	listener  net.Listener
 	running   chan error
 	isRunning bool
-	closer    sync.Once
 }
 
 //NewHTTPServer creates a new HTTPServer
@@ -55,7 +53,7 @@ func (h *HTTPServer) Close() error {
 
 func (h *HTTPServer) Wait() error {
 	if !h.isRunning {
-		return errors.New("Already closed")
+		return errors.New("already closed")
 	}
 	return <-h.running
 }

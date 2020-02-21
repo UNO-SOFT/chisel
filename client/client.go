@@ -71,7 +71,7 @@ func NewClient(config *Config) (*Client, error) {
 	for _, s := range config.Remotes {
 		r, err := chshare.DecodeRemote(s)
 		if err != nil {
-			return nil, fmt.Errorf("Failed to decode remote '%s': %s", s, err)
+			return nil, fmt.Errorf("failed to decode remote '%s': %s", s, err)
 		}
 		shared.Remotes = append(shared.Remotes, r)
 	}
@@ -88,7 +88,7 @@ func NewClient(config *Config) (*Client, error) {
 	if p := config.HTTPProxy; p != "" {
 		client.httpProxyURL, err = url.Parse(p)
 		if err != nil {
-			return nil, fmt.Errorf("Invalid proxy URL (%s)", err)
+			return nil, fmt.Errorf("invalid proxy URL (%s)", err)
 		}
 	}
 
@@ -119,7 +119,7 @@ func (c *Client) verifyServer(hostname string, remote net.Addr, key ssh.PublicKe
 	expect := c.config.Fingerprint
 	got := chshare.FingerprintKey(key)
 	if expect != "" && !strings.HasPrefix(got, expect) {
-		return fmt.Errorf("Invalid fingerprint (%s)", got)
+		return fmt.Errorf("invalid fingerprint (%s)", got)
 	}
 	//overwrite with complete fingerprint
 	c.Infof("Fingerprint %s", got)

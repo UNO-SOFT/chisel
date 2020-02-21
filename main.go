@@ -59,7 +59,7 @@ func main() {
 	case "client":
 		client(args, *envPrefix)
 	default:
-		fmt.Fprintf(os.Stderr, help)
+		fmt.Fprint(os.Stderr, help)
 		os.Exit(1)
 	}
 }

@@ -176,7 +176,7 @@ func (s *Server) authUser(c ssh.ConnMetadata, password []byte) (*ssh.Permissions
 	user, found := s.users.Get(n)
 	if !found || user.Pass != string(password) {
 		s.Debugf("Login failed for user: %s", n)
-		return nil, errors.New("Invalid authentication for username: %s")
+		return nil, errors.New("invalid authentication for username: %s")
 	}
 	// insert the user session map
 	// @note: this should probably have a lock on it given the map isn't thread-safe??

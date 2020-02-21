@@ -8,7 +8,6 @@ import (
 
 type rwcConn struct {
 	io.ReadWriteCloser
-	buff []byte
 }
 
 func NewRWCConn(rwc io.ReadWriteCloser) net.Conn {
