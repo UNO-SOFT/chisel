@@ -25,7 +25,7 @@ github.com/jpillora/sizestr
 # github.com/tomasen/realip v0.0.0-20180522021738-f0c99a92ddce
 ## explicit
 github.com/tomasen/realip
-# golang.org/x/crypto v0.0.0-20200214034016-1d94cc7ab1c6
+# golang.org/x/crypto v0.0.0-20200220183623-bac4c82f6975
 ## explicit
 golang.org/x/crypto/blowfish
 golang.org/x/crypto/chacha20
@@ -36,10 +36,10 @@ golang.org/x/crypto/internal/subtle
 golang.org/x/crypto/poly1305
 golang.org/x/crypto/ssh
 golang.org/x/crypto/ssh/internal/bcrypt_pbkdf
-# golang.org/x/net v0.0.0-20200202094626-16171245cfb2
+# golang.org/x/net v0.0.0-20200219183655-46282727080f
 ## explicit
 golang.org/x/net/context
-# golang.org/x/sys v0.0.0-20200217220822-9197077df867
+# golang.org/x/sys v0.0.0-20200219091948-cb0a6d8edb6c
 ## explicit
 golang.org/x/sys/cpu
 golang.org/x/sys/unix
