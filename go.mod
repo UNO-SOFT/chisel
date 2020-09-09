@@ -12,8 +12,9 @@ require (
 	github.com/jpillora/requestlog v1.0.0
 	github.com/jpillora/sizestr v1.0.0
 	github.com/tomasen/realip v0.0.0-20180522021738-f0c99a92ddce // indirect
-	golang.org/x/crypto v0.0.0-20200709230013-948cd5f35899
-	golang.org/x/net v0.0.0-20200707034311-ab3426394381
+	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a
+	golang.org/x/net v0.0.0-20200904194848-62affa334b73
 	golang.org/x/sync v0.0.0-20200625203802-6e8e738ad208
-	golang.org/x/sys v0.0.0-20200625212154-ddb9806d33ae // indirect
+	golang.org/x/sys v0.0.0-20200908134130-d2e65c121b96 // indirect
+	golang.org/x/text v0.3.3 // indirect
 )
